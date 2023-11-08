@@ -1,19 +1,19 @@
 import speech_recognition as sr
 import serial
 
-ser = serial.Serial('COM9', 115200, timeout=0)
+ser = serial.Serial('COM5', 115200, timeout=0)
 r = sr.Recognizer()
 
 while True:
     with sr.Microphone() as mic:
         try:
-            print("Silence please, calibrating...")
+            print("silence, calibration...")
             r.adjust_for_ambient_noise(mic, duration=2)
-            print("calibrated, speak now...")
+            print("calibré, parlez")
             audio = r.listen(mic)
-            text = r.recognize_google(audio)
+            text = r.recognize_google(audio, language='fr-FR')
             text = text.lower()
-            print("You said "+text+"\n")
+            print("Vous avez dit "+text+"\n")
             ser.write(str.encode(text))
             
             
