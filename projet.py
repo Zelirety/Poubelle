@@ -8,7 +8,7 @@ while True:
     with sr.Microphone() as mic:
         try:
             print("silence, calibration...")
-            r.adjust_for_ambient_noise(mic, duration=2)
+            r.adjust_for_ambient_noise(mic, duration=1)
             print("calibré, parlez")
             audio = r.listen(mic)
             text = r.recognize_google(audio, language='fr-FR')
