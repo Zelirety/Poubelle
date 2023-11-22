@@ -23,8 +23,14 @@ void loop() {
                         //digitalWrite(7, LOW)
 
                 if (str == "fermer poubelle"){
-                        //OUVRIR
+                        //FERMER
                         //digitalWrite(7, LOW)
+                        //delay(1000)
+                        //digitalWrite(7, HIGH)
+                }
+                if (str == "augh"){
+                        //AAAUUGH
+                        //digitalWrite(7, HIGH)
                         //delay(1000)
                         //digitalWrite(7, HIGH)
                 }
