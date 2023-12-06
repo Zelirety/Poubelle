@@ -1,7 +1,7 @@
 import speech_recognition as sr
 import serial
 
-ser = serial.Serial('COM5', 115200, timeout=0)
+ser = serial.Serial('COM', 115200, timeout=0)
 r = sr.Recognizer()
 
 while True:
