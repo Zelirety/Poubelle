@@ -9,12 +9,11 @@ void loop() {
         if (Serial.available() > 0) {
                 str = Serial.readStringUntil('\n');  
              
-                if (str == "allumer led"){
+                if (str == "allumer moteur"){
                   digitalWrite(7, HIGH);
-                }
-
-                 if (str == "éteindre led"){
+                  delay(2000);
                   digitalWrite(7, LOW);
                 }
+
         }
 }
