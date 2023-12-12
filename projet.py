@@ -15,6 +15,7 @@ while True:
             text = text.lower()
             print("Vous avez dit "+text+"\n")
             ser.write(str.encode(text))
+            print(ser.readline())
             
             
         except sr.UnknownValueError:
