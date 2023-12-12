@@ -11,8 +11,8 @@ void loop() {
              
                 if (str == "allumer moteur"){
                   digitalWrite(7, HIGH);
-                  Serial.write("ok")
-                  delay(2000);
+
+                  delay(200);
                   digitalWrite(7, LOW);
                   
                 }

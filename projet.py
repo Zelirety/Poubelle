@@ -1,7 +1,7 @@
 import speech_recognition as sr
 import serial
 
-ser = serial.Serial('COM4', 115200, timeout=0)
+ser = serial.Serial('COM3', 115200, timeout=0)
 #r = sr.Recognizer()
 
 while True:
@@ -25,4 +25,4 @@ while True:
         #    print("Request error; {0}".format(e))
 
         if input('appuie : ') == 'ok':
-            ser.write('allumer moteur')
+            ser.write(str.encode('allumer moteur'))
