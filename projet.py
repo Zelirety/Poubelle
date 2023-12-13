@@ -28,5 +28,6 @@ while True:
         #if input('appuie : ') == 'ok':
             #ser.write(str.encode('allumer moteur'))
 
-        print(ser.readline().decode("ascii"))
-        time.sleep(0.25)
+        print(ser.readline())
+        time.sleep(0.26)
+        #.decode("utf-8")
