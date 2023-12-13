@@ -1,8 +1,11 @@
+#include "Ultrasonic.h"
 String str;  
+
+Ultrasonic ultrasonic(7);
 
 void setup() {
         Serial.begin(115200);      
-        pinMode(7, OUTPUT);
+        pinMode(8, OUTPUT);
 }
 
 void loop() {
@@ -10,12 +13,19 @@ void loop() {
                 str = Serial.readStringUntil('\n');  
              
                 if (str == "allumer moteur"){
-                  digitalWrite(7, HIGH);
-
+                  digitalWrite(8, HIGH);
+                  //Serial.write()
                   delay(200);
-                  digitalWrite(7, LOW);
+                  digitalWrite(8, LOW);
                   
                 }
 
         }
+     long RangeInInches;
+     long RangeInCentimeters;
+    
+     RangeInCentimeters = ultrasonic.MeasureInCentimeters(); // two measurements should keep an interval
+     Serial.write(RangeInCentimeters);//0~400cm
+     //Serial.println(" cm");
+     delay(250);
 }
