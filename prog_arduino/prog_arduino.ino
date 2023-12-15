@@ -15,7 +15,7 @@ void loop() {
                 if (str == "allumer moteur"){
                   digitalWrite(8, HIGH);
                   //Serial.write()
-                  delay(200);
+                  delay(50000);
                   digitalWrite(8, LOW);
                   
                 }
@@ -26,7 +26,6 @@ void loop() {
     
      RangeInCentimeters = ultrasonic.MeasureInCentimeters(); // two measurements should keep an interval
      String range_to_string = String(RangeInCentimeters);
-     Serial.write("hello"));//0~400cm
-     //Serial.println(" cm");
+     Serial.println(RangeInCentimeters);
      delay(250);
 }

@@ -5,7 +5,7 @@ import time
 ser = serial.Serial('COM3', 115200, timeout=0)
 #r = sr.Recognizer()
 
-while True:
+while (True):
     #with sr.Microphone() as mic:
     #    try:
      #       print("silence, calibration...")
@@ -28,6 +28,7 @@ while True:
         #if input('appuie : ') == 'ok':
             #ser.write(str.encode('allumer moteur'))
 
-        print(ser.readline())
-        time.sleep(0.26)
+        if (ser.in_waiting > 0):
+            print(ser.readline())
+        #time.sleep(0.26)
         #.decode("utf-8")
