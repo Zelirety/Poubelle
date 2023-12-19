@@ -25,5 +25,5 @@ while (True):
 
         if (ser.in_waiting > 0):
             ligne = str(ser.readline())[2:-5]
-            print(ligne)
+
             
