@@ -1,3 +1,5 @@
+import speech_recognition as sr #pip install SpeechRecognition et pip install pyaudio
+import serial #pip install pyserial
 import pygame as pg
 import pickle as kl
 from debug import *
@@ -6,6 +8,8 @@ import sys
 
 pg.init()
 
+ser = serial.Serial('COM4', 115200, timeout=0) #Mise en relation avec le port série (changer le 1er paramètre en fonction de l'ordinateur)
+r = sr.Recognizer() #Initialisation de SpeechRecognition
 
 def get_font(size):
     return pg.font.Font(None, size)
@@ -13,6 +17,9 @@ def get_font(size):
 
 class Graphic_interface:
     def __init__(self):
+        self.ligne = 0
+        self.profondeur = 19
+
         self.day_1 = 200
         self.day_2 = 100
         self.day_3 = 200
@@ -32,13 +39,36 @@ class Graphic_interface:
 
     def run(self):
         while True:
-            # self.day_list[6] -= 10
-            # self.info_history -= 10
-            # self.info_percent =  la distance
+            #---------Reconaissance vocale----------------
+            with sr.Microphone() as mic:
+                try:
+                    print("silence, calibration...")
+                    r.adjust_for_ambient_noise(mic, duration=0.5)
+                    print("calibré, parlez")
+                    audio = r.listen(mic)
+                    text = r.recognize_google(audio, language='fr-FR')
+                    text = text.lower()
+                    print("Vous avez dit "+text+"\n")
+                    ser.write(str.encode(text))
+                    
+                except sr.UnknownValueError:
+                    print("Audio non compréhensible")
+                    
+                except sr.RequestError as e:
+                    print("Request error; {0}".format(e))
+
+            if (ser.in_waiting > 0):
+                self.ligne = str(ser.readline())[2:-5]
+
+
+            #---------Affichage----------------
+            self.day_list[6] -= 10
+            self.info_history -= 10
+            self.info_percent =  int(self.ligne)
             
             pg.draw.rect(self.screen, 'grey', pg.Rect(40, 40, 1200, 640))
 
-            percentage_value = 200 - round(self.info_percent * 10)
+            percentage_value = 100 - self.info_percent/self.profondeur*100
             self.screen.blit(self.bin, (700, 250))
             pg.draw.rect(self.screen, 'brown',
                          pg.Rect(765, round(self.info_percent * 27), 260, 540 - round(self.info_percent * 27)))
