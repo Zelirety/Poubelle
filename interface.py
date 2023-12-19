@@ -49,14 +49,25 @@ class Graphic_interface:
             pg.draw.rect(self.screen, 'yellow', pg.Rect(380, self.day_list[4], 60, 500 - self.day_list[4]))
             pg.draw.rect(self.screen, 'yellow', pg.Rect(460, self.day_list[5], 60, 500 - self.day_list[5]))
             pg.draw.rect(self.screen, 'yellow', pg.Rect(540, self.info_history, 60, 500 - self.info_history))
-            moyenne = (500 - self.day_list[0] + 500 - self.day_list[1] +500 - self.day_list[2] +
+            moyenne = ((500 - self.day_list[0] + 500 - self.day_list[1] +500 - self.day_list[2] +
                        500 - self.day_list[3] + 500 - self.day_list[4] + 500 - self.day_list[5] +
-                       500 - self.day_list[6])/7
+                       500 - self.day_list[6])/7)/10
             self.screen.blit(pg.font.Font(None, 40).render("Nombre d'ouvertures journalières", True, 'black'),
                              (50, 540))
-            self.screen.blit(pg.font.Font(None, 40).render("Cette semaine : ", True, 'black'),
+            self.screen.blit(pg.font.Font(None, 40).render(f"Moyenne de cette semaine :{round(moyenne)} ", True, 'black'),
                              (50, 100))
-            print(moyenne)
+            if moyenne < 5 :
+                self.screen.blit(pg.font.Font(None, 40).render("Vous utilisez peu la poubelle", True, 'blue'),
+                                 (50, 150))
+            elif moyenne < 15 :
+                self.screen.blit(pg.font.Font(None, 40).render("Vous utilisez modérement la poubelle", True, 'green'),
+                                 (50, 150))
+            elif moyenne < 25 :
+                self.screen.blit(pg.font.Font(None, 40).render("Vous utilisez souvent la poubelle", True, 'orange'),
+                                 (50, 150))
+            else:
+                self.screen.blit(pg.font.Font(None, 40).render("Vous êtes accro à la poubelle, consultez", True, 'red'),
+                                 (50, 150))
 
             MOUSE_POS = pg.mouse.get_pos()
             RESET = Button(image=None, pos=(150, 650),
@@ -68,7 +79,7 @@ class Graphic_interface:
             if keys[pg.K_SPACE]:
                 self.day_list[6] -= 1
                 self.info_percent -= 1
-                self.info_history -= 1
+                self.info_history -= 10
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     for i in range(6):
